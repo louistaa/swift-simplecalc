@@ -1,11 +1,79 @@
 print("Welcome to the UW Calculator Playground")
 
 func calculate(_ args: [String]) -> Int {
-    return -1
+    let operation = args.last!
+    
+    if (operation == "count") {
+        return args.count - 1
+        
+    } else if (operation == "avg") {
+        var sum = 0
+        for i in 0..<args.count - 1 {
+            sum += Int(args[i])!
+        }
+        if (sum == 0) {
+            return 0
+        }
+        return sum / (args.count - 1)
+        
+    } else if (operation == "fact") {
+        if (args[0] == "fact") {
+            return 0
+        }
+        var mult = Int(args[0])!
+        var retVal: Int = 1
+        while mult > 0 {
+            retVal *= mult
+            mult -= 1
+        }
+        return retVal
+        
+    } else {
+        let operation = args[1]
+
+        if (operation == "+") {
+            return Int(args[0])! + Int(args[2])!
+        }
+        if (operation == "-") {
+            return Int(args[0])! - Int(args[2])!
+        }
+        if (operation == "*") {
+            return Int(args[0])! * Int(args[2])!
+        }
+        if (operation == "/") {
+            return Int(args[0])! / Int(args[2])!
+        }
+        if (operation == "%") {
+            return Int(args[0])! % Int(args[2])!
+        }
+        
+    }
+    return -1 // no solution found
 }
 
 func calculate(_ arg: String) -> Int {
-    return -1
+    var newArgs: [String] = []
+    for x in arg {
+        if (x == " ") {
+            continue
+        }
+        if (x == "c") {
+            newArgs.append("count")
+            break
+        }
+        if (x == "a") {
+            newArgs.append("avg")
+            break
+        }
+        if (x == "f") {
+            newArgs.append("fact")
+            break
+        }
+
+        newArgs.append(String(x))
+
+    }
+    return(calculate(newArgs))
 }
 
 // -------------------------------------------
@@ -88,3 +156,6 @@ calculate(["2.0", "/", "2.0"]) == 1.0
 calculate(["2.0", "%", "2.0"]) == 0.0
 calculate("1.0 2.0 3.0 4.0 5.0 count") == 5
 */
+
+// sources:
+// https://stackoverflow.com/questions/30992191/factorials-in-swift
